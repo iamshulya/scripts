@@ -1,6 +1,6 @@
 Elasticsearch health status.
 
-`es_status --host <host or ip> --port <port> --https <enable httpsi if persent>`
+`es_status --host <host or ip> --port <port> --https <enable https if persent>`
 
 Examples:
 
