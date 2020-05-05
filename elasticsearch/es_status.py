@@ -4,7 +4,7 @@
 import requests
 import argparse
 
-parser = argparse.ArgumentParser(description='Check Elasticsearch cluster health status, 0 if green, 1 in another case. Example: python3 ./es_status --host localhost --port 9201')
+parser = argparse.ArgumentParser(description='Check Elasticsearch cluster health status')
 
 parser.add_argument('--host', action='store', type=str, required=True, help='elasticsearch host')
 parser.add_argument('--port', action='store', type=int, required=True, help='elasticsearch port')
@@ -23,9 +23,15 @@ def run ():
 
 
 def status_checker(host, port, schema):
-    x = requests.get(schema + "://" + host + ":" + str(port) + "/_cluster/health")
-    if x.json()['status'] == 'green':
-        print('0')
+    try:
+        x = requests.get(schema + "://" + host + ":" + str(port) + "/_cluster/health")
+    except requests.RequestException as e:
+        raise SystemExit('1')
+    if x.status_code == 200:
+        if x.json()['status'] == 'green':
+            print('0')
+        else:
+            print('1')
     else:
         print('1')
 
