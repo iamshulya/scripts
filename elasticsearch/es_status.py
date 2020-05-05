@@ -4,7 +4,7 @@
 import requests
 import argparse
 
-parser = argparse.ArgumentParser(description='Check Elasticsearch cluster health status')
+parser = argparse.ArgumentParser(description='Check Elasticsearch cluster health status, 0 if green, 1 in another case. Example: python3 ./es_status --host localhost --port 9200')
 
 parser.add_argument('--host', action='store', type=str, required=True, help='elasticsearch host')
 parser.add_argument('--port', action='store', type=int, required=True, help='elasticsearch port')
